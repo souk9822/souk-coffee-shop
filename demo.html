@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee Shop</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #6b3e26;
+            --secondary-color: #f8f1e4;
+            --accent-color: #c79b6a;
+            --text-color: #333;
+            --light-text: #777;
+            --white: #fff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            color: var(--text-color);
+            background-color: var(--secondary-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--accent-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .hero {
+            height: 100vh;
+            background: url('https://images.unsplash.com/photo-1445116572660-236099ec97a0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1480&q=80') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            padding: 0 5%;
+            margin-top: 70px;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            color: var(--white);
+            max-width: 600px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #5a331f;
+        }
+
+        .menu {
+            padding: 5rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary-color);
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
+            color: var(--light-text);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .menu-item {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .menu-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .menu-item-content {
+            padding: 1.5rem;
+        }
+
+        .menu-item h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .menu-item p {
+            color: var(--light-text);
+            margin-bottom: 1rem;
+        }
+
+        .price {
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+
+        .about {
+            padding: 5rem 5%;
+            background-color: var(--white);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .contact {
+            padding: 5rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .contact-info {
+            margin-bottom: 2rem;
+        }
+
+        .contact-info h3 {
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .contact-form textarea {
+            height: 150px;
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        .social-links {
+            margin: 1rem 0;
+        }
+
+        .social-links a {
+            color: var(--white);
+            margin: 0 0.5rem;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Chatbot Styles */
+        .chatbot-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+
+        .chatbot-icon {
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .chatbot-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .chatbot-icon i {
+            color: var(--white);
+            font-size: 1.5rem;
+        }
+
+        .chatbot-window {
+            width: 350px;
+            height: 500px;
+            background-color: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+        }
+
+        .chatbot-header {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chatbot-header h3 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        .close-chatbot {
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .chatbot-iframe {
+            flex-grow: 1;
+            border: none;
+        }
+
+        .chatbot-active .chatbot-window {
+            display: flex;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 1rem;
+            }
+
+            .nav-links {
+                margin-top: 1rem;
+            }
+
+            .nav-links li {
+                margin-left: 1rem;
+                margin-right: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-content {
+                flex-direction: column;
+            }
+
+            .chatbot-window {
+                width: 300px;
+                height: 450px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="#" class="logo">Coffee<span>Shop</span></a>
+            <ul class="nav-links">
+                <li><a href="#home">Trang chủ</a></li>
+                <li><a href="#menu">Thực đơn</a></li>
+                <li><a href="#about">Về chúng tôi</a></li>
+                <li><a href="#contact">Liên hệ</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Hương vị cà phê tuyệt hảo</h1>
+            <p>Khám phá thế giới cà phê đặc biệt, nơi mỗi ly cà phê là một tác phẩm nghệ thuật.</p>
+            <a href="#menu" class="btn">Xem thực đơn</a>
+        </div>
+    </section>
+
+    <section class="menu" id="menu">
+        <div class="section-title">
+            <h2>Thực đơn của chúng tôi</h2>
+            <p>Khám phá các loại cà phê đặc biệt và đồ uống ngon miệng của chúng tôi</p>
+        </div>
+        <div class="menu-grid">
+            <div class="menu-item">
+                <img src="https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Espresso">
+                <div class="menu-item-content">
+                    <h3>Espresso</h3>
+                    <p>Cà phê đậm đà, mạnh mẽ với lớp crema vàng óng</p>
+                    <div class="price">45.000đ</div>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="https://images.unsplash.com/photo-1512568400610-62da28bc8a13?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Cappuccino">
+                <div class="menu-item-content">
+                    <h3>Cappuccino</h3>
+                    <p>Espresso kết hợp với sữa nóng và bọt sữa mịn</p>
+                    <div class="price">55.000đ</div>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="https://images.unsplash.com/photo-1568649929103-28ffbefaca1e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Latte Art">
+                <div class="menu-item-content">
+                    <h3>Latte Art</h3>
+                    <p>Espresso với nhiều sữa nóng và nghệ thuật pha chế tinh tế</p>
+                    <div class="price">60.000đ</div>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1495&q=80" alt="Cold Brew">
+                <div class="menu-item-content">
+                    <h3>Cold Brew</h3>
+                    <p>Cà phê ủ lạnh trong 12 giờ, hương vị mượt mà ít acid</p>
+                    <div class="price">65.000đ</div>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="https://images.unsplash.com/photo-1564890369478-c89ca6d9cde9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Matcha Latte">
+                <div class="menu-item-content">
+                    <h3>Matcha Latte</h3>
+                    <p>Trà xanh matcha Nhật Bản kết hợp với sữa tươi thơm ngon</p>
+                    <div class="price">70.000đ</div>
+                </div>
+            </div>
+            <div class="menu-item">
+                <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1557&q=80" alt="Chocolate Cake">
+                <div class="menu-item-content">
+                    <h3>Bánh Chocolate</h3>
+                    <p>Bánh chocolate đậm đà kết hợp với cà phê</p>
+                    <div class="price">75.000đ</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <div class="section-title">
+            <h2>Về chúng tôi</h2>
+            <p>Khám phá câu chuyện đằng sau</p>
+        </div>
+        <div class="about-content">
+            <div class="about-text">
+                <h3>Câu chuyện của chúng tôi</h3>
+                <p>Mocha Delight được thành lập năm 2025 với niềm đam mê mang đến những ly cà phê chất lượng cao nhất. Chúng tôi tin rằng mỗi ly cà phê không chỉ là thức uống mà còn là trải nghiệm.</p>
+                <p>Chúng tôi làm việc trực tiếp với các nông trại cà phê trên khắp thế giới để chọn lọc những hạt cà phê ngon nhất, sau đó rang xay theo phương pháp truyền thống để giữ trọn hương vị.</p>
+
+            </div>
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1445116572660-236099ec97a0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1480&q=80" alt="Coffee Shop Interior">
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <div class="section-title">
+            <h2>Liên hệ</h2>
+            <p>Chúng tôi luôn sẵn sàng lắng nghe ý kiến của bạn</p>
+        </div>
+        <div class="contact-grid">
+            <div class="contact-info">
+                <h3>Thông tin liên hệ</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Đường ABC, Quận 1, TP.HCM</p>
+                <p><i class="fas fa-phone"></i> (028) 1234 5678</p>
+                <p><i class="fas fa-envelope"></i>CoffeeShop@gmail.com</p>
+                <p><i class="fas fa-clock"></i> Mở cửa: 7:00 - 22:00 hàng ngày</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="logo">CoffeeShop</div>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-tiktok"></i></a>
+        </div>
+        <p>&copy; 2025 CoffeeShop. All rights reserved.</p>
+    </footer>
+
+    <!-- Chatbot Container -->
+    <div class="chatbot-container">
+        <div class="chatbot-icon" id="chatbotIcon">
+            <i class="fas fa-comment-dots"></i>
+        </div>
+        <div class="chatbot-window" id="chatbotWindow">
+            <div class="chatbot-header">
+                <h3>Coffee Shop Assistant</h3>
+                <button class="close-chatbot" id="closeChatbot">&times;</button>
+            </div>
+           <iframe width="350" height="430" allow="microphone;" src="https://console.dialogflow.com/api-client/demo/embedded/399b9afe-58fd-479b-b575-6057771d180e"></iframe>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Chatbot functionality
+        const chatbotIcon = document.getElementById('chatbotIcon');
+        const chatbotWindow = document.getElementById('chatbotWindow');
+        const closeChatbot = document.getElementById('closeChatbot');
+
+        chatbotIcon.addEventListener('click', () => {
+            chatbotWindow.style.display = 'flex';
+            chatbotIcon.classList.add('chatbot-active');
+        });
+
+        closeChatbot.addEventListener('click', () => {
+            chatbotWindow.style.display = 'none';
+            chatbotIcon.classList.remove('chatbot-active');
+        });
+
+        // Close chatbot when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!chatbotWindow.contains(e.target) && e.target !== chatbotIcon) {
+                chatbotWindow.style.display = 'none';
+                chatbotIcon.classList.remove('chatbot-active');
+            }
+        });
+
+        // Prevent closing when clicking inside the chatbot
+        chatbotWindow.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+
+        // Sticky navbar
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            header.classList.toggle('sticky', window.scrollY > 0);
+        });
+    </script>
+</body>
+</html>
